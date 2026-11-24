@@ -12,3 +12,5 @@ Libjaras Corporation: Jamis Bade, Steven Chen, Abigail Escamilla, Amir Jamil, Ro
 [Specification Document](https://docs.google.com/document/d/1oKEQAtS889m9HEOS11JCWCRH1XoZQP5lJs5100uyIF0/edit?usp=sharing)
 
 [Design Report](https://docs.google.com/document/d/1oKEQAtS889m9HEOS11JCWCRH1XoZQP5lJs5100uyIF0/edit?tab=t.93lf5ka1rtc8)
+
+[UI Prototypes](docs/ui-prototypes.md)
