@@ -4,9 +4,9 @@ from storage_manager import StorageManager
 def seed_initial_data(db):
     # Add sample books to the catalog if no books exist.
     if not db.get_all_books():
-        db.add_book("B001", "Dune", "Frank Herbert", "Sci-Fi", "Chilton Books", 19.99, 12, "Desert planet political epic.")
-        db.add_book("B002", "Foundation", "Isaac Asimov", "Sci-Fi", "Gnome Press", 12.99, 8, "Galactic empire psychohistory.")
-        db.add_book("B003", "Hyperion", "Dan Simmons", "Sci-Fi", "Doubleday", 15.99, 5, "Seven pilgrims travel to the Shrike.")
+        db.add_book("B001", "Dune", "Frank Herbert", "Sci-Fi", "Chilton Books", 19.99, 12, "Desert planet political epic.", "B001.png")
+        db.add_book("B002", "Foundation", "Isaac Asimov", "Sci-Fi", "Gnome Press", 12.99, 8, "Galactic empire psychohistory.", "B002.png")
+        db.add_book("B003", "Hyperion", "Dan Simmons", "Sci-Fi", "Doubleday", 15.99, 5, "Seven pilgrims travel to the Shrike.", "B003.png")
 
     # Create the VIP customer account if it does not already exist.
     if not db.get_user("U001"):
@@ -24,7 +24,7 @@ def run_interactive_cli():
     while True:
         print("\n=== LIBJARAS AI-ENABLED BOOKSTORE (STORAGE PROTOTYPE) ===")
         print("1. View All Books (UC-002)")
-        print("2. Search Books by Keyword / Genre / Author (UC-001)")
+        print("2. Search Books by Keyword / Cover Image / Genre / Author (UC-001)")
         print("3. Add New Book [Manager] (UC-011)")
         print("4. Purchase Book / Update Inventory (UC-005)")
         print("5. Leave a Book Review [With Moderation] (UC-006 / UC-013)")
@@ -40,10 +40,15 @@ def run_interactive_cli():
                 print(f"[{b['bookID']}] {b['title']} by {b['author']} ({b['genre']}) | ${b['price']:.2f} | Stock: {b['quantity']} | Rating: {b['rating']}/5")
 
         elif choice == "2":
-            keyword = input("Enter title/summary keyword (or press Enter to skip): ").strip()
+            keyword = input("Enter keywords (or press Enter to skip): ").strip()
+            image = input("Cover image path for visual search (or press Enter to skip): ").strip().strip('"') or None
             genre = input("Enter genre (or press Enter to skip): ").strip()
             author = input("Enter author (or press Enter to skip): ").strip()
-            results = db.search_books(keyword=keyword, genre=genre, author=author)
+            try:
+                results = db.search_books(keyword=keyword, genre=genre, author=author, image=image)
+            except ValueError as e:
+                print(e)
+                continue
             if not results:
                 print("No matching books found.")
             else:

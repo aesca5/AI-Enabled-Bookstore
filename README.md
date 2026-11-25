@@ -21,3 +21,9 @@ Libjaras Corporation: Jamis Bade, Steven Chen, Abigail Escamilla, Amir Jamil, Ro
 python -m pip install -r requirements.txt
 streamlit run app.py
 ```
+
+## Run tests
+
+```bash
+python -m unittest discover -s tests
+```
