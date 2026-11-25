@@ -2,6 +2,8 @@ import json
 import os
 from datetime import datetime
 
+from search import filter_books, image_matches
+
 class StorageManager:
     """Unified local file-storage manager for Libjaras AI-Enabled Bookstore (SR-02)."""
 
@@ -13,6 +15,7 @@ class StorageManager:
         self.reviews_file = os.path.join(self.data_dir, "reviews.txt")
         self.orders_file = os.path.join(self.data_dir, "orders.txt")
         self.prohibited_file = os.path.join(self.data_dir, "prohibited_words.txt")
+        self.covers_dir = os.path.join(self.data_dir, "covers")
         self._init_files()
 
     def _init_files(self):
@@ -42,20 +45,15 @@ class StorageManager:
     def get_all_books(self):
         return self._read_json(self.books_file)
 
-    def search_books(self, keyword="", genre="", author=""):
+    def search_books(self, keyword="", genre="", author="", image=None):
+        """UC-001. `image` is a path or file object; raises ValueError if unreadable."""
         books = self.get_all_books()
-        results = []
-        for b in books:
-            if keyword and keyword.lower() not in b["title"].lower() and keyword.lower() not in b["summary"].lower():
-                continue
-            if genre and genre.lower() != b["genre"].lower():
-                continue
-            if author and author.lower() not in b["author"].lower():
-                continue
-            results.append(b)
-        return results
+        if image is None:
+            return filter_books(books, keyword, genre, author)
+        # Closest cover first; keywords and filters only narrow the matches.
+        return filter_books(image_matches(image, books, self.covers_dir), keyword, genre, author, rank=False)
 
-    def add_book(self, book_id, title, author, genre, publisher, price, quantity, summary=""):
+    def add_book(self, book_id, title, author, genre, publisher, price, quantity, summary="", cover=""):
         books = self.get_all_books()
         if any(b["title"].lower() == title.lower() and b["author"].lower() == author.lower() for b in books):
             return False, "Duplicate book already exists in catalog."
@@ -69,7 +67,8 @@ class StorageManager:
             "quantity": int(quantity),
             "rating": 0.0,
             "review_count": 0,
-            "summary": summary
+            "summary": summary,
+            "cover": cover
         })
         self._write_json(self.books_file, books)
         return True, "Book successfully added."
