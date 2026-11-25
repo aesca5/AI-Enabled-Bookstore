@@ -1,0 +1,38 @@
+[
+  {
+    "bookID": "B001",
+    "title": "Dune",
+    "author": "Frank Herbert",
+    "genre": "Sci-Fi",
+    "publisher": "Chilton Books",
+    "price": 19.99,
+    "quantity": 12,
+    "rating": 0.0,
+    "review_count": 0,
+    "summary": "Desert planet political epic."
+  },
+  {
+    "bookID": "B002",
+    "title": "Foundation",
+    "author": "Isaac Asimov",
+    "genre": "Sci-Fi",
+    "publisher": "Gnome Press",
+    "price": 12.99,
+    "quantity": 8,
+    "rating": 0.0,
+    "review_count": 0,
+    "summary": "Galactic empire psychohistory."
+  },
+  {
+    "bookID": "B003",
+    "title": "Hyperion",
+    "author": "Dan Simmons",
+    "genre": "Sci-Fi",
+    "publisher": "Doubleday",
+    "price": 15.99,
+    "quantity": 5,
+    "rating": 5.0,
+    "review_count": 1,
+    "summary": "Seven pilgrims travel to the Shrike."
+  }
+]

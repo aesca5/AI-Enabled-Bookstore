@@ -1,0 +1,16 @@
+[
+  {
+    "userID": "U001",
+    "name": "Jamis",
+    "role": "VP",
+    "balance": 100.0,
+    "suspended": false
+  },
+  {
+    "userID": "U002",
+    "name": "Abigail",
+    "role": "MR",
+    "balance": 0.0,
+    "suspended": false
+  }
+]

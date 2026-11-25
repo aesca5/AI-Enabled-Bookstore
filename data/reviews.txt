@@ -1,0 +1,9 @@
+[
+  {
+    "userID": "U001",
+    "bookID": "B003",
+    "rating": 5,
+    "text": "Amazing world-building, zero **** here!",
+    "timestamp": "2026-11-24T20:32:47.916712"
+  }
+]
