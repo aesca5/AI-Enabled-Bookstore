@@ -2,14 +2,17 @@ from storage_manager import StorageManager
 
 
 def seed_initial_data(db):
-    """Seeds sample catalog and user accounts if the local text files are empty."""
+    # Add sample books to the catalog if no books exist.
     if not db.get_all_books():
         db.add_book("B001", "Dune", "Frank Herbert", "Sci-Fi", "Chilton Books", 19.99, 12, "Desert planet political epic.")
         db.add_book("B002", "Foundation", "Isaac Asimov", "Sci-Fi", "Gnome Press", 12.99, 8, "Galactic empire psychohistory.")
         db.add_book("B003", "Hyperion", "Dan Simmons", "Sci-Fi", "Doubleday", 15.99, 5, "Seven pilgrims travel to the Shrike.")
 
+    # Create the VIP customer account if it does not already exist.
     if not db.get_user("U001"):
         db.upsert_user({"userID": "U001", "name": "Jamis", "role": "VP", "balance": 100.0, "suspended": False})
+
+    # Create the Manager account if it does not already exist.
     if not db.get_user("U002"):
         db.upsert_user({"userID": "U002", "name": "Abigail", "role": "MR", "balance": 0.0, "suspended": False})
 
